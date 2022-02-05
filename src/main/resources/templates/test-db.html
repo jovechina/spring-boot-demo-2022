@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>test-db</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<!-- body -->
+	<form action="#" th:action="@{/}" th:object="${contentResult}" method="POST">
+		<div class="container">
+			<div class="col d-flex justify-content-center">
+				<div class="card col-6 ">
+					<div class="card-body text-primary">
+						<div class="mb-3">
+							<label for="name" class="form-label">用户名:</label>
+							<input type="text" class="form-control" th:field="*{name}" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</body>
+
+</html>
