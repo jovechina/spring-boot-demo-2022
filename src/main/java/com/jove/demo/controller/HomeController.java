@@ -32,6 +32,7 @@ public class HomeController {
 		if (user == null || user.getUserName() == null || user.getUserName().equals("")) {
 			user = new User();
 			model.addAttribute("user", user);
+			model.addAttribute("title", "装修估算-登录");
 			return "login";
 		} else {
 			//如果已经登录就直接进入下一个画面
@@ -48,6 +49,7 @@ public class HomeController {
 			logger.info("用户名密码输入错误:");
 			user.setToken(null);
 			model.addAttribute("user", user);
+			model.addAttribute("title", "装修估算-登录");
 			return "login";
 		}
 		// 服务端验证，确认用户是否存在。
@@ -72,6 +74,7 @@ public class HomeController {
 		// 测试数据库连接，数据访问
 		ContentResult contentResult = contentService.selectContentById(id);
 		model.addAttribute("contentResult", contentResult);
+		model.addAttribute("title", "数据库连接测试");
 		return "test-db";
 	}
 	

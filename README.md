@@ -84,3 +84,16 @@ Spring Web + Thymeleaf + Spring Data JPA(hibernate) + mysql demo code for spring
 	*	Service
 	*	Controller
 	*	view(Thymeleaf)
+
+### Day3 回顾-知识点
+*	JPA的Select的实现
+*	JPA的Model类的注解配置
+*	JPA多主键的注解配置
+*	Thymeleaf实现下拉框
+*	Thymeleaf实现Radio框
+*	Thymeleaf的判断，循环语句
+
+### Day4
+1. 装修估算画面
+	* 根据数据动态显示估算画面
+2. JPA多表级联查询

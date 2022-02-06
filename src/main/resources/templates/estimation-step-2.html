@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- header -->
+
+<head>
+	<div th:include="fragments/header :: header"></div>	
+</head>
+
+<body>
+	<!-- menu -->
+	<div th:include="fragments/navbar :: navbar"></div>
+
+	<!-- body -->
+	<form th:action="@{estimation-2}" th:object="${estimation}" class="form-horizontal" method="POST">
+		<div class="container">
+			<input type="hidden" th:field="*{roomId}" />
+			<input type="hidden" th:field="*{interiorDecoration}" />
+			<input type="hidden" th:value="${pageStatus}" th:attr="name='pageStatus'" />
+			<th:block th:each="roomCategory: ${ roomCategories }">
+				<div class="mt-4 mb-2">
+					<div class="row  ps-1 mb-2 title-1" th:text="${ roomCategory.categoryName }" />
+					<div class="row">
+						<th:block th:each="roomService: ${ roomCategory.roomServices }">
+							<div class="col-1  label-1">
+								<label th:text="${roomService.serviceName}" />
+							</div>
+							<div class="col-3  form-control-1">
+								<th:block th:if="${ roomService.roomProducts.size() eq 1 }">
+									<th:block th:each="prod : ${roomService.roomProducts}">
+										<input type="checkbox" class="form-check-input"
+											th:field="*{__${roomService.serviceShortName}__}"
+											th:value="${prod.productId }"
+											th:disabled="${ pageStatus }" />
+										<label class="form-check-label"
+											th:for="${#ids.prev(roomService.serviceShortName)}"
+											th:text="${prod.productName}" />
+									</th:block>
+								</th:block>
+								<th:block th:if="${ roomService.roomProducts.size() gt 1 }">
+									<select th:field="*{__${roomService.serviceShortName}__}"
+										th:disabled="${ pageStatus }">
+										<option th:each="prod : ${roomService.roomProducts}"
+											th:value="${prod.productId}" th:text="${prod.productName}" />
+									</select>
+								</th:block>
+							</div>
+						</th:block>
+					</div>
+				</div>
+			</th:block>
+
+			<!-- button -->
+	</form>
+
+
+	<!-- footer -->
+	<div th:include="fragments/footer :: footer"></div>
+</body>
+
+</html>

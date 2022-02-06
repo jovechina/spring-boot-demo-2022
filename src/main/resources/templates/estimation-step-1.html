@@ -1,20 +1,16 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <!-- header -->
-
 <head>
-	<title>home</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<div th:include="fragments/header :: header"></div>
+	<div th:include="fragments/header :: header"></div>	
 </head>
 
 <body>
 	<!-- menu -->
 	<div th:include="fragments/navbar :: navbar"></div>
 
-
 	<!-- body -->
-	<form action="@{/estimation-1}" th:object="${estimation}" class="form-horizontal" method="POST">
+	<form th:action="@{/estimation-1}" th:object="${estimation}" class="form-horizontal" method="POST">
 		<div class="container">
 			<div class="mt-4">请输入住房的基本信息：</div>
 			<div class="input-group mt-2">
