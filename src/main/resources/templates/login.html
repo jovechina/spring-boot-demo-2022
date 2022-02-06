@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- header -->
+<head>
+	<title>home</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<div th:include="fragments/header :: header"></div>
+</head>
+
+<body>
+	<!-- menu -->
+	<div th:include="fragments/navbar :: navbar"></div>
+	<form th:action="@{/login}" class="form-horizontal" th:object="${user}" method="POST">
+		<div class="container">
+			<div class="col d-flex justify-content-center">
+				<div class="card col-6 ">
+					<div class="card-header">登录画面</div>
+					<div class="card-body text-primary">
+						<div class="mb-3">
+							<label for="userName" class="form-label">用户名:</label>
+							<input type="text" class="form-control input-sm" th:field="*{userName}" id="userName" />
+							<div class="has-error">
+								<p th:if="${#fields.hasErrors('userName')}" class="help-inline text-danger"  th:errors="*{userName}" />
+							</div>
+						</div>
+						<div class="mb-3">
+							<label for="password" class="form-label">密码:</label>
+							<input type="password" class="form-control input-sm" th:field="*{password}" id="password" />
+							<div class="has-error">
+								<p th:if="${#fields.hasErrors('password')}" class="help-inline text-danger" th:errors="*{password}" />								
+							</div>
+						</div>
+						<div class="has-error mb-3">
+							<p th:if="${#fields.hasGlobalErrors()}"class="help-inline text-danger" th:errors="*{global}"></p>
+						</div>
+						<div class="col d-flex justify-content-center">
+							<button type="submit" class="btn btn-primary btn-sm col-4" name="action"
+								value="login">登录</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	
+	<!-- footer -->
+	<div th:include="fragments/footer :: footer"></div>
+</body>
+
+</html>
