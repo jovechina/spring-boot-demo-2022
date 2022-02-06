@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- header -->
+
+<head>
+	<title>home</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<div th:include="fragments/header :: header"></div>
+</head>
+
+<body>
+	<!-- menu -->
+	<div th:include="fragments/navbar :: navbar"></div>
+
+
+	<!-- body -->
+	<form action="@{/estimation-1}" th:object="${estimation}" class="form-horizontal" method="POST">
+		<div class="container">
+			<div class="mt-4">请输入住房的基本信息：</div>
+			<div class="input-group mt-2">
+				<span class="input-group-text col-2">房型:</span>
+
+				<select class="form-select" th:field="*{roomId}" id="roomId">
+					<option value="0">请选择房型</option>
+					<option th:each="item : ${roomTypes}" th:value="${item.roomId}" th:text="${item.roomType}">请选择房型
+					</option>
+				</select>
+			</div>
+
+			<div class="input-group mt-2">
+				<span class="input-group-text col-2">装修状况:</span>
+				<th:block th:each="item : ${codeMasters}">
+					<th:block th:if=" ${itemStat.first}">
+						<div class="col-2">
+							<div class="form-control border-end-0 rounded-0">
+								<input type="radio" class="form-check-input" th:field="*{interiorDecoration}"
+									th:value="${item.key }" />
+								<label class="form-check-label" th:for="${#ids.next('interiorDecoration')}"
+									th:text="${item.value}"> 装修状况 </label>
+							</div>
+						</div>
+					</th:block>
+					<th:block th:if="${itemStat.last}">
+						<div class="form-control border-start-0 rounded-right">
+							<input type="radio" class="form-check-input" th:field="*{interiorDecoration}"
+								th:value="${item.key }" />
+							<label class="form-check-label" th:for=="${#ids.next('interiorDecoration')}"
+								th:text="${item.value}"> 装修状况 </label>
+						</div>
+					</th:block>
+					<th:block th:unless="${itemStat.first || itemStat.last}">
+						<div class="col-2">
+							<div class="form-control border-start-0 border-end-0 rounded-0">
+								<input type="radio" class="form-check-input" th:field="*{interiorDecoration}"
+									th:value="${item.key }" />
+								<label class="form-check-label" th:for="${#ids.next('interiorDecoration')}"
+									th:text="${item.value}"> 装修状况 </label>
+							</div>
+						</div>
+					</th:block>
+				</th:block>
+			</div>
+			<div class="row d-flex mt-2">
+				<div class="col d-flex justify-content-start">
+					<button type="submit" class="btn btn-primary col-4" name="action" value="prev">上一步</button>
+				</div>
+				<div class="col d-flex justify-content-end">
+					<button type="submit" class="btn btn-primary col-4" name="action" value="next">下一步</button>
+				</div>
+			</div>
+		</div>
+	</form>
+
+
+	<!-- footer -->
+	<div th:include="fragments/footer :: footer"></div>
+</body>
+
+</html>

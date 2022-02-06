@@ -21,6 +21,10 @@ import com.jove.demo.service.UserService;
 @Controller
 public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger("HomeController.class");
+	
+	@Autowired
+	private EstimationController estimationController;	
+	
 	@GetMapping("/")
 	public String home(Model model) {
 		logger.info("Welcome , home !");
@@ -31,8 +35,7 @@ public class HomeController {
 			return "login";
 		} else {
 			//如果已经登录就直接进入下一个画面
-			return "home";
-			//return estimationController.estimationStepOneInit(model);
+			return estimationController.estimationStepOneInit(model);
 		}
 	}
 
@@ -40,8 +43,6 @@ public class HomeController {
 	UserService userService;
 	@PostMapping("/login")
 	public String login(@Validated User user, BindingResult result, Model model) {
-		
-
 		// 表单验证，确认输入是否符合要求
 		if (result.hasErrors()) {
 			logger.info("用户名密码输入错误:");
@@ -49,7 +50,6 @@ public class HomeController {
 			model.addAttribute("user", user);
 			return "login";
 		}
-
 		// 服务端验证，确认用户是否存在。
 		user = userService.validateLogin(user);
 		logger.debug("token" + user.getToken());
@@ -62,19 +62,17 @@ public class HomeController {
 			logger.debug("登录成功, userId:" + user.getUserId());
 			model.addAttribute("user", user);
 		}
-		return "home";
-		//return estimationController.estimationStepOneInit(model);
-
+		return estimationController.estimationStepOneInit(model);
 	}	
 	
 	@Autowired
 	ContentService contentService;	
 	@GetMapping("/test-db/{id}")
 	public String content(@PathVariable int id, Model model) {
+		// 测试数据库连接，数据访问
 		ContentResult contentResult = contentService.selectContentById(id);
 		model.addAttribute("contentResult", contentResult);
 		return "test-db";
 	}
-	
 	
 }

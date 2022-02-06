@@ -61,3 +61,26 @@ Spring Web + Thymeleaf + Spring Data JPA(hibernate) + mysql demo code for spring
 6. 显示用户名，密码不正确的输入错误
 7. 输入成功是显示下一个画面
 8. 登录成功后不需要再次登录
+
+### Day2 回顾-知识点
+*	View数据传递Controller（Request Level)
+*	Controller数据传递给View（Request Level)
+*	hibernate validation 字段级验证
+*	Thymeleaf error 字段级验证结果显示
+*	用户密码加密后比较，用户名密码业务级验证
+*	验证结果（global error）信息显示	
+*	Session级变量和Request级变量
+
+### Day3
+1. 实现下拉选择框
+	*	Model
+	*	JPA Repository
+	*	Service
+	*	Controller
+	*	view(Thymeleaf)
+2. 实现Radio Button
+	*	Model
+	*	JPA Repository
+	*	Service
+	*	Controller
+	*	view(Thymeleaf)
