@@ -9,12 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.jove.demo.model.Estimation;
-import com.jove.demo.model.RoomCategory;
 import com.jove.demo.model.User;
 import com.jove.demo.service.CodeMasterService;
 import com.jove.demo.service.EstimationService;
@@ -26,7 +28,7 @@ import com.jove.demo.model.CodeMaster;
 @Controller
 @SessionAttributes({ "user", "estimation", "pageType" })
 public class EstimationController {
-	private static final String PAGE_MODEL_NEW = "NEW";
+	static final String PAGE_MODEL_NEW = "NEW";
 	private static final String PAGE_MODEL_EDIT = "EDIT";
 	private static final String PAGE_MODEL_DETAIL = "DETAIL";
 	private static final boolean PAGE_NEW = false;
@@ -37,6 +39,7 @@ public class EstimationController {
 	@Autowired
 	private HomeController homeController;
 
+	//入力画面1 提交
 	@PostMapping("/estimation-1")
 	public String estimationStepOne(@RequestParam String action, @Validated Estimation reqEstimation, BindingResult result, Model model) {
 		logger.debug("estimation 1 controller -> estimation step 2 page init");
@@ -46,6 +49,8 @@ public class EstimationController {
 			String pageType = (String) model.getAttribute("pageType");
 			if (pageType == null || pageType.equals("")) {
 				pageType = PAGE_MODEL_NEW;
+			} else {
+				logger.debug("estimation-1 pageType is not null, value:"+pageType);	
 			}
 			// estimation 1 画面的内容保存进session，其他值不变
 			model.addAttribute("pageType", pageType);
@@ -64,10 +69,12 @@ public class EstimationController {
 	@Autowired
 	private EstimationService estService;
 
+	//入力画面2和确认画面3 提交
 	@PostMapping(value = "/estimation-2")
 	public String estimationStepTwo(@RequestParam String action, @RequestParam boolean pageStatus, @Validated Estimation estimation, Model model) {
 
 		String pageType = (String) model.getAttribute("pageType");
+		logger.debug("estimation-2 pageType:"+pageType);
 		model.addAttribute("estimation", estimation);
 
 		if (!pageStatus) {
@@ -104,12 +111,44 @@ public class EstimationController {
 			}
 			estimation = new Estimation();
 			estimation.setUserId(user.getUserId());
-			model.addAttribute("estimation", estimation);
-			model.addAttribute("pageType", null);
+			model.addAttribute("estimation", estimation);		
 			return estimationSuccess(estimationId, model);
 		}
 	}
 
+	//一览画面（列表画面）
+	@GetMapping(value = "/estimation-search")
+	public String estimationLists(Model model) {
+		logger.debug("estimation list page init");
+		model.addAttribute("pageType", null);		
+		model.addAttribute("estLists", estService.selectToSearchResult());
+		return "estimation-list";
+	}
+	
+	//列表->详细画面
+	@GetMapping(value = "/estimation/detail/{id}")
+	public String estimationDetail(@PathVariable int id, Model model) {
+		Estimation estimation = estService.selectOne(id);
+		model.addAttribute("pageType", PAGE_MODEL_DETAIL);
+		model.addAttribute("estimation", estimation);
+		return estimationStepThreeInit(model);
+	}
+
+	//列表->详细画面
+	@GetMapping(value = "/estimation/edit/{id}")
+	public String estimationEdit(@PathVariable int id, Model model) {
+		Estimation estimation = estService.selectOne(id);
+		model.addAttribute("pageType", PAGE_MODEL_EDIT);	
+		model.addAttribute("estimation", estimation);
+		return estimationStepTwoInit(model);
+	}
+	//列表->删除
+	@GetMapping(value = "/estimation/del/{id}")
+	public String estimationDel(@PathVariable int id, Model model) {
+		estService.del(id);
+		return estimationLists(model);
+	}	
+	
 	@Autowired
 	CodeMasterService codeMasterService;
 
@@ -138,6 +177,11 @@ public class EstimationController {
 		model.addAttribute("codeMasters", codeMasters);
 		model.addAttribute("estimation", estimation);
 		model.addAttribute("title", "装修估算-房屋状况");
+		
+		String pageType = (String) model.getAttribute("pageType");
+		if (pageType == null || pageType.equals("")) {
+			logger.debug("estimationStepOneInit pageType is null, value:"+pageType);	
+		}			
 		return "estimation-step-1";
 	}
 

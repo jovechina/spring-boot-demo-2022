@@ -14,15 +14,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-// @Table(name="codemaster")
 public class RoomCategory implements Serializable{
 	
 	private static final long serialVersionUID = -5567368518787829747L;
 	
 	@Id
-	// @Column(name="key")
 	private int categoryId;
-	// @Column(name="value")
 	private String categoryName;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

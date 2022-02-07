@@ -36,6 +36,10 @@ public class HomeController {
 			return "login";
 		} else {
 			//如果已经登录就直接进入下一个画面
+			// 重置session变量
+			
+			model.addAttribute("pageType", EstimationController.PAGE_MODEL_NEW);
+			model.addAttribute("estimation", null);		
 			return estimationController.estimationStepOneInit(model);
 		}
 	}

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- header -->
+
+<head>
+	<div th:include="fragments/header :: header"></div>
+</head>
+
+<body>
+	<!-- menu -->
+	<div th:include="fragments/navbar :: navbar"></div>
+
+	<!-- body -->
+
+	<form th:action="@{/estimation-action}" class="form-horizontal" method="POST">
+		<div class="container">
+			<table class="table table-bordered table-hover">
+				<thead class="table-info">
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">估算ID</th>
+						<th scope="col">客户</th>
+						<th scope="col">房型</th>
+						<th scope="col">当前装修状况</th>
+						<th scope="col">电路</th>
+						<th scope="col">网络</th>
+						<th scope="col">创建日期</th>
+						<th scope="col">更新日期</th>
+						<th scope="col">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<th:block th:each="est, estStat : ${estLists}">
+						<tr>
+							<th scope="row" th:text="${ estStat.count }"></th>
+							<td th:text="${ est.estimationId }" />
+							<td th:text="${ est.userName }" />
+							<td th:text="${ est.roomType }" />
+							<td th:text="${ est.interiorDecoration }" />
+							<td th:text="${est.wires ne null} ? ${ est.wires.productName } : '' " />
+							<td th:text="${est.cable ne null} ? ${ est.cable.productName } : '' " />
+							<td th:text="${ #dates.format(est.createDate,'yyyy-MM-dd') }" />
+							<td th:text="${ #dates.format(est.updateDate,'yyyy-MM-dd')  }" />
+							<td>
+								<a th:href="@{/estimation/detail/}+${ est.estimationId}" class="link-dark">详细</a>
+								<a th:href="@{/estimation/edit/}+${ est.estimationId}" class="link-primary">编辑</a>
+								<a th:href="@{/estimation/del/}+${ est.estimationId}" class="link-danger">删除</a>
+							</td>
+						</tr>
+					</th:block>
+				</tbody>
+			</table>
+		</div>
+	</form>
+	<!-- footer -->
+	<div th:include="fragments/footer :: footer"></div>
+</body>
+
+</html>

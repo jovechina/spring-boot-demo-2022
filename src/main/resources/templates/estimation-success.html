@@ -11,20 +11,15 @@
 	<div th:include="fragments/navbar :: navbar"></div>
 
 	<!-- body -->
-	<form action="@{/estimation-search}" class="form-horizontal" method="GET">
+	<form th:action="@{/estimation-search}" class="form-horizontal" method="GET">
 		<div class="container">
 			<div class="card">
 				<div class="card-body">
 					<div class="col d-flex justify-content-center">
-						<h5 class="card-title" th:text="'申请编号:(' + ${ estimationId } + ')'">的预算申请
-							<th:block th:if="${pageType eq 'NEW' }">
-							提交
-							</th:block>
-							<th:block th:if="${pageType eq 'EDIT' }">
-							更新
-							</th:block>							
-							成功。
-						</h5>
+						<h5 class="card-title" th:text="'申请编号:(' + ${ estimationId } + ')的预算申请'" />
+						<h5 class="card-title" th:text=" ${pageType eq 'NEW'} ? '提交' : '更新'" />
+						<input type="hidden" th:value="${pageType}" th:attr="name='pageType'" />
+						<h5 class="card-title" th:text="成功。" />
 					</div>
 					<div class=" d-flex justify-content-center">
 						<p class="card-text">预估预算总价 - 报价逻辑---开发中...</p>

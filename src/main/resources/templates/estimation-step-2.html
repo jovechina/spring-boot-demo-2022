@@ -60,7 +60,7 @@
 				</th:block>
 				<th:block th:if="${ pageStatus }">
 					<div class="col d-flex justify-content-center" th:if="${ pageType == 'DETAIL' } ">
-						<a class="btn btn-primary col-4" href="@{/estimation-search}" role="button">返回</a>
+						<a class="btn btn-primary col-4" th:href="@{/estimation-search}" role="button">返回</a>
 					</div>
 					<div class="col d-flex justify-content-start"
 						th:if="${ pageType == 'EDIT' || pageType == 'NEW'  } ">
