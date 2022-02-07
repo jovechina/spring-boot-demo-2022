@@ -17,7 +17,7 @@ import com.jove.demo.model.User;
 import com.jove.demo.service.ContentService;
 import com.jove.demo.service.UserService;
 
-@SessionAttributes({ "user" })
+@SessionAttributes({ "user", "estimation", "pageType" })
 @Controller
 public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger("HomeController.class");

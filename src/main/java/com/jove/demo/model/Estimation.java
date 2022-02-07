@@ -2,18 +2,31 @@ package com.jove.demo.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Estimation {
 	@Id
+	@Column(name="estimationid")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int estimationId;
+	@Column(name="userid")
 	private int userId;
+	
+	@Transient
 	private String userName;
+	@Column(name="roomid")
 	private int roomId;
+	@Transient
 	private String roomType;
-	private String interiorDecoration;	
+	@Column(name="interiordecoration")
+	private String interiorDecoration;
+	@Column(name="paintwall")
 	private String paintWall;
 	private String ceiling;
 	private String wires;
@@ -21,10 +34,15 @@ public class Estimation {
 	private String floor;
 	private String walltiles;
 	private String tile;
+	@Column(name="kitchencabinet")
 	private String kitchenCabinet;
+	@Column(name="rangehood")
 	private String rangeHood;
+	@Column(name="waterpipe")
 	private String waterPipe;
+	@Column(name="createdate")
 	private Date createDate;
+	@Column(name="updatedate")
 	private Date updateDate;
 
 	public int getEstimationId() {

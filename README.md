@@ -97,3 +97,18 @@ Spring Web + Thymeleaf + Spring Data JPA(hibernate) + mysql demo code for spring
 1. 装修估算画面
 	* 根据数据动态显示估算画面
 2. JPA多表级联查询
+
+### Day4 回顾-知识点
+*	自定义查询的实现
+*	多表嵌套查询
+*	动态字段的View实现
+*	隐藏字段的实现
+
+### Day5
+1. 装修估算确认画面 
+	* 不可编辑画面（入力画面的重用）
+	* 画面数据的保存
+2. 画面迁移
+	* 画面迁移时数据的保持
+3. 画面数据的保存和重置
+

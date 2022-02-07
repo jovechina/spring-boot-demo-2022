@@ -3,7 +3,7 @@
 <!-- header -->
 
 <head>
-	<div th:include="fragments/header :: header"></div>	
+	<div th:include="fragments/header :: header"></div>
 </head>
 
 <body>
@@ -11,7 +11,7 @@
 	<div th:include="fragments/navbar :: navbar"></div>
 
 	<!-- body -->
-	<form th:action="@{estimation-2}" th:object="${estimation}" class="form-horizontal" method="POST">
+	<form th:action="@{/estimation-2}" th:object="${estimation}" class="form-horizontal" method="POST">
 		<div class="container">
 			<input type="hidden" th:field="*{roomId}" />
 			<input type="hidden" th:field="*{interiorDecoration}" />
@@ -29,8 +29,7 @@
 									<th:block th:each="prod : ${roomService.roomProducts}">
 										<input type="checkbox" class="form-check-input"
 											th:field="*{__${roomService.serviceShortName}__}"
-											th:value="${prod.productId }"
-											th:disabled="${ pageStatus }" />
+											th:value="${prod.productId }" th:disabled="${ pageStatus }" />
 										<label class="form-check-label"
 											th:for="${#ids.prev(roomService.serviceShortName)}"
 											th:text="${prod.productName}" />
@@ -50,6 +49,31 @@
 			</th:block>
 
 			<!-- button -->
+			<div class="row d-flex mt-2">
+				<th:block th:if="${ !pageStatus }">
+					<div class="col d-flex justify-content-start">
+						<button type="submit" class="btn btn-primary col-4" name="action" value="prev">上一步</button>
+					</div>
+					<div class="col d-flex justify-content-end">
+						<button type="submit" class="btn btn-primary col-4" name="action" value="next">下一步</button>
+					</div>
+				</th:block>
+				<th:block th:if="${ pageStatus }">
+					<div class="col d-flex justify-content-center" th:if="${ pageType == 'DETAIL' } ">
+						<a class="btn btn-primary col-4" href="@{/estimation-search}" role="button">返回</a>
+					</div>
+					<div class="col d-flex justify-content-start"
+						th:if="${ pageType == 'EDIT' || pageType == 'NEW'  } ">
+						<button type="submit" class="btn btn-primary col-4" name="action" value="prev">上一步</button>
+					</div>
+					<div class="col d-flex justify-content-end" th:if="${ pageType == 'EDIT' }">
+						<button type="submit" class="btn btn-primary col-4" name="action" value="update">更新</button>
+					</div>
+					<div class="col d-flex justify-content-end" th:if="${ pageType == 'NEW' }">
+						<button type="submit" class="btn btn-primary col-4" name="action" value="save">保存</button>
+					</div>
+				</th:block>
+			</div>
 	</form>
 
 
