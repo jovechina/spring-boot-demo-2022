@@ -20,10 +20,12 @@ public class UserService {
 		User returnValue = userRep.findByUserName(user.getUserName());
 		if(returnValue != null) {
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			//logger.debug(encoder.encode("abc123"));
 			if (encoder.matches(user.getPassword(), returnValue.getPassword())) {
 				logger.debug("userName:"+ user.getUserName());
 				logger.debug("password:"+ user.getPassword());
 				logger.debug("password:"+ returnValue.getPassword());
+				
 				returnValue.setPassword("");
 				//TODO generate token
 				returnValue.setToken("Logined");
