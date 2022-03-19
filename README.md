@@ -132,3 +132,9 @@ Spring Web + Thymeleaf + Spring Data JPA(hibernate) + mysql demo code for spring
 ### Day6 回顾-知识点
 1. 画面的增，删，改，查
 2. 画面复用（编辑，详细画面）
+
+
+### Day7
+1. 引入alibaba Druid 1.2.x
+2. 引入swagger 3.x
+
