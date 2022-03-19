@@ -17,6 +17,8 @@ import com.jove.demo.model.User;
 import com.jove.demo.service.ContentService;
 import com.jove.demo.service.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @SessionAttributes({ "user", "estimation", "pageType" })
 @Controller
 public class HomeController {
@@ -25,6 +27,7 @@ public class HomeController {
 	@Autowired
 	private EstimationController estimationController;	
 	
+	@Operation(summary="默认启动画面")
 	@GetMapping("/")
 	public String home(Model model) {
 		logger.info("Welcome , home !");
@@ -46,6 +49,7 @@ public class HomeController {
 
 	@Autowired
 	UserService userService;
+	@Operation(summary="用户登录")
 	@PostMapping("/login")
 	public String login(@Validated User user, BindingResult result, Model model) {
 		// 表单验证，确认输入是否符合要求
@@ -73,6 +77,7 @@ public class HomeController {
 	
 	@Autowired
 	ContentService contentService;	
+	@Operation(summary="数据库连接测试")
 	@GetMapping("/test-db/{id}")
 	public String content(@PathVariable int id, Model model) {
 		// 测试数据库连接，数据访问

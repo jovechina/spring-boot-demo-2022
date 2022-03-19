@@ -22,6 +22,9 @@ import com.jove.demo.service.CodeMasterService;
 import com.jove.demo.service.EstimationService;
 import com.jove.demo.service.RoomCategoryService;
 import com.jove.demo.service.RoomTypeService;
+
+import io.swagger.v3.oas.annotations.Operation;
+
 import com.jove.demo.model.RoomType;
 import com.jove.demo.model.CodeMaster;
 
@@ -40,6 +43,7 @@ public class EstimationController {
 	private HomeController homeController;
 
 	//入力画面1 提交
+	@Operation(summary="入力画面1 提交")
 	@PostMapping("/estimation-1")
 	public String estimationStepOne(@RequestParam String action, @Validated Estimation reqEstimation, BindingResult result, Model model) {
 		logger.debug("estimation 1 controller -> estimation step 2 page init");
@@ -70,6 +74,7 @@ public class EstimationController {
 	private EstimationService estService;
 
 	//入力画面2和确认画面3 提交
+	@Operation(summary="入力画面2和确认画面3 提交")
 	@PostMapping(value = "/estimation-2")
 	public String estimationStepTwo(@RequestParam String action, @RequestParam boolean pageStatus, @Validated Estimation estimation, Model model) {
 
@@ -117,6 +122,7 @@ public class EstimationController {
 	}
 
 	//一览画面（列表画面）
+	@Operation(summary="一览画面（列表画面）")
 	@GetMapping(value = "/estimation-search")
 	public String estimationLists(Model model) {
 		logger.debug("estimation list page init");
@@ -135,6 +141,7 @@ public class EstimationController {
 	}
 
 	//列表->详细画面
+	@Operation(summary="列表->详细画面")
 	@GetMapping(value = "/estimation/edit/{id}")
 	public String estimationEdit(@PathVariable int id, Model model) {
 		Estimation estimation = estService.selectOne(id);
@@ -143,6 +150,7 @@ public class EstimationController {
 		return estimationStepTwoInit(model);
 	}
 	//列表->删除
+	@Operation(summary="列表->删除")
 	@GetMapping(value = "/estimation/del/{id}")
 	public String estimationDel(@PathVariable int id, Model model) {
 		estService.del(id);
