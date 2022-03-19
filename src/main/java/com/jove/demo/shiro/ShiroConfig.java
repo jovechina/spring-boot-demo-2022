@@ -4,6 +4,7 @@ package com.jove.demo.shiro;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -55,8 +56,9 @@ public class ShiroConfig {
         //单个URL拦截，   
         filterChainDefinitionMap.put("/estimation-2", "authc");        
         //批量URL拦截
-        filterChainDefinitionMap.put("/**", "authc");
         filterChainDefinitionMap.put("/admin/**", "authc, roles[admin]");
+        filterChainDefinitionMap.put("/**", "authc");
+        
         
 
         /*
@@ -81,4 +83,13 @@ public class ShiroConfig {
         securityManager.setRealm(basicRealm);
         return securityManager;
     }
+    
+    //注入权限管理
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(@Qualifier("securityManager") DefaultWebSecurityManager securityManager) {
+        AuthorizationAttributeSourceAdvisor sourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+        sourceAdvisor.setSecurityManager(securityManager);
+        return sourceAdvisor;
+    }
+    
 }

@@ -31,4 +31,9 @@ public class UserService {
 		} 
 		return user;
 	}
+	
+	
+	public User getUser(String userName) {
+		return userRep.findByUserName(userName);
+	}
 }
