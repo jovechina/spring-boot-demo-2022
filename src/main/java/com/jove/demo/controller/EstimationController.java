@@ -2,6 +2,7 @@ package com.jove.demo.controller;
 
 import java.util.List;
 
+//import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
+
 
 import com.jove.demo.model.Estimation;
 import com.jove.demo.model.User;
@@ -122,8 +123,9 @@ public class EstimationController {
 	}
 
 	//一览画面（列表画面）
+	//@RequiresRoles("admin")		
 	@Operation(summary="一览画面（列表画面）")
-	@GetMapping(value = "/estimation-search")
+	@GetMapping(value = "/admin/estimation-search")
 	public String estimationLists(Model model) {
 		logger.debug("estimation list page init");
 		model.addAttribute("pageType", null);		

@@ -138,3 +138,6 @@ Spring Web + Thymeleaf + Spring Data JPA(hibernate) + mysql demo code for spring
 1. 引入alibaba Druid 1.2.x
 2. 引入swagger 3.x
 
+### Day8
+1. 引入框架Apache Shiro 1.7
+2. 添加登录验证，授权功能
