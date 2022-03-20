@@ -141,3 +141,10 @@ Spring Web + Thymeleaf + Spring Data JPA(hibernate) + mysql demo code for spring
 ### Day8
 1. 引入框架Apache Shiro 1.7
 2. 添加登录验证，授权功能
+
+### Day9
+1. 配置Apache Shiro
+	* 默认的ShiroCache
+	* 常用的轻量级ehCache	
+	
+

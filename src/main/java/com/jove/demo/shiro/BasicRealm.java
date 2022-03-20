@@ -42,12 +42,12 @@ public class BasicRealm extends AuthorizingRealm {
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		// 取得当前用户的角色，判断是否有权限
 		User user = userService.getUser(userName);
-		Set<String> shiroPermissions = new HashSet<>();
-		String[] permissions = user.getRole().split(",");
-		for( String per : permissions) {
-			shiroPermissions.add(per);
+		Set<String> shiroRoles = new HashSet<>();
+		String[] userRoles = user.getRole().split(",");
+		for( String userRole : userRoles) {
+			shiroRoles.add(userRole);
 		}
-		info.setRoles(shiroPermissions);
+		info.setRoles(shiroRoles);
 		return info;
 	}
 
